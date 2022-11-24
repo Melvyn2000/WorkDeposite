@@ -3,16 +3,19 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-    <a href="{{ path('app_login') }}">Login</a>
-    <br><br>
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <div class="projects-section">
+        {{ form_start(registrationForm, {'attr': {'class': 'form-login'}}) }}
+        <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+            <div class="search-wrapper">
+                {{ form_row(registrationForm.email, {'attr': {'class': 'search-input', 'placeholder': 'Enter your email ...'}}) }}
+            </div>
+            <div class="search-wrapper">
+                {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'search-input', 'placeholder': 'Enter your password ...'}}) }}
+            </div>
+            {{ form_row(registrationForm.agreeTerms) }}
+            <div class="search-wrapper button-submit">
+                <button type="submit" class="btn">Register</button>
+            </div>
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}
