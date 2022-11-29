@@ -43,7 +43,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('ProjetSymfonyLPDEV');
+        ->setTitle('Administration Dépôt');
     }
 
     public function configureMenuItems(): iterable
@@ -51,16 +51,24 @@ class DashboardController extends AbstractDashboardController
         //yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
 
-        if ('ROLE_USER' === $this->getUser()->getRoles()[0]) {
+/*        if ('ROLE_USER' === $this->getUser()->getRoles()[0]) {
             return [
                 MenuItem::linkToCrud('Works', 'fa fa-briefcase', Works::class),
             ];
-        }
+        }*/
 
         return [
-            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::linkToDashboard('Home', 'fa fa-home'),
+            //MenuItem::linkToExitImpersonation('Back in Website', 'fa fa-backward'),
+            MenuItem::linkToLogout('Logout', 'fa fa-backward'),
+
+            MenuItem::section('Users'),
             MenuItem::linkToCrud('Users', 'fa fa-users', User::class),
+
+            MenuItem::section('Categories'),
             MenuItem::linkToCrud('Categories', 'fa fa-tags', Categorie::class),
+
+            MenuItem::section('Works'),
             MenuItem::linkToCrud('Works', 'fa fa-briefcase', Works::class),
         ];
     }
