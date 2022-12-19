@@ -22,14 +22,13 @@
                 <div class="app-header-left">
                     <span class="app-icon"></span>
                     <a href="{{ path('app_home') }}" class="app-name">WorkDeposite</a>
-{#                    <div class="search-wrapper">
-                        <input class="search-input" type="text" placeholder="Search">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
-                            <defs></defs>
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="M21 21l-4.35-4.35"></path>
-                        </svg>
-                    </div>#}
+                    {% for message in app.flashes('warning') %}
+                        <div class="search-wrapper flash-notice">
+                            <div class="flash-notice-message">
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="app-header-right">
 {#                    <button class="mode-switch" title="Switch Theme">
@@ -56,9 +55,9 @@
                             <span class="btn-border">Register</span>
                         </a>
                     {% endif %}
-                    {% if users.email is defined %}
+                    {% if app.user.email is defined %}
                         <button class="profile-btn">
-                            <span>{{ users.email }}</span>
+                            <span>{{ app.user.email }}</span>
                         </button>
                     {% endif %}
                 </div>

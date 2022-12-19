@@ -29,6 +29,15 @@ input[name="works[filesOrlinks]"] {
   border: none;
 }
 
+.search-wrapper.flash-notice {
+  background-color: #ff0000a6;
+  padding: 15px;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px red solid;
+}
+
 @media (max-width: 520px) {
   .app-header {
     justify-content: center;

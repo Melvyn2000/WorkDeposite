@@ -18,12 +18,10 @@ class HomeController extends AbstractController
         if ($this->getUser()) {
             $categories = $this->getCategories($doctrine);
             $works = $this->getWorks($doctrine);
-            $users = $this->getUser($doctrine);
             return $this->render('home/index.html.twig', [
                 'controller_name' => 'HomeController',
                 'categories' => $categories,
                 'works' => $works,
-                'users' => $users,
             ]);
         }
         return $this->redirectToRoute('app_login');

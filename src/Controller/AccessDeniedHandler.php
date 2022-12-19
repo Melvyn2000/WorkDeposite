@@ -19,7 +19,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
     public function handle(Request $request, AccessDeniedException $accessDeniedException): ?RedirectResponse
     {
         //return new Response('Accès refusé !', 403);
-        $request->getSession()->getFlashBag()->add('note', 'Accès refusé !');
+        $request->getSession()->getFlashBag()->add('warning', 'Accès refusé !');
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 }
