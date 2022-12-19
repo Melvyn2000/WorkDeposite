@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        if($this->getUser()){
+        if ($this->getUser()) {
             $categories = $this->getCategories($doctrine);
             $works = $this->getWorks($doctrine);
             $users = $this->getUser($doctrine);
@@ -29,13 +29,26 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    public function getCategories(ManagerRegistry $doctrine) {
-        $categories = $doctrine->getRepository(Categorie::class)->findAll();
-        return $categories;
+    /**
+     * Return all data of table "category".
+     *
+     * @param ManagerRegistry $doctrine
+     * @return array
+     */
+    public function getCategories(ManagerRegistry $doctrine): array
+    {
+        return $doctrine->getRepository(Categorie::class)->findAll();
     }
 
-    public function getWorks(ManagerRegistry $doctrine) {
-        $works = $doctrine->getRepository(Works::class)->findAll();
-        return $works;
+    /**
+     * return all data of table "works".
+     *
+     * @param ManagerRegistry $doctrine
+     * @return array
+     *
+     */
+    public function getWorks(ManagerRegistry $doctrine): array
+    {
+        return $doctrine->getRepository(Works::class)->findAll();
     }
 }

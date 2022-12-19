@@ -28,6 +28,7 @@ class WorksController extends AbstractController
     public function new(Request $request, WorksRepository $worksRepository): Response
     {
         $work = new Works();
+        $work->setUser($this->getUser());
         $form = $this->createForm(WorksType::class, $work);
         $form->handleRequest($request);
 
