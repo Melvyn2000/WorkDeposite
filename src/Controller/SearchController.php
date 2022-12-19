@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Works;
+use App\Form\SearchType;
 use App\Repository\WorksRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,12 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
-    #[Route('/search', name: 'app_search')]
+    #[Route('/search2', name: 'app_search2')]
     public function index(Request $request, ManagerRegistry $doctrine)
     {
-        $query = $request->request->all('form')['query'];
+        $title = $request->request->all('search')['query'];
+        //dd($request->request->all('search'));
 
-        $title = 'Im';
         $whereElement = '%'.$title.'%';
         $requete = $doctrine->getRepository(Works::class)->createQueryBuilder('w')
             ->where('w.title LIKE :title')
@@ -34,26 +35,17 @@ class SearchController extends AbstractController
         ]);
     }
 
-    #[Route('/search2', name: 'app_search2')]
-    public function searchBar(): Response
+    // Décaler la fonction sur la page Home
+    #[Route('/search', name: 'app_search')]
+    public function searchBar(Request $request): Response
     {
-        $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('app_search'))
-            ->add('query', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Entrez un mot-clé'
-                ]
-            ])
-            ->add('recherche', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
-            ])
-            ->getForm();
-        return $this->render('search/searchBar.html.twig', [
-            'form' => $form->createView()
+        $form = $this->createForm(SearchType::class, [
+            'action' => $this->generateUrl('app_search2')
+        ]);
+        //dd($form);
+
+        return $this->renderForm('search/searchBar.html.twig', [
+            'form' => $form,
         ]);
     }
 }

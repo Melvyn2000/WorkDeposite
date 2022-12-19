@@ -1,0 +1,18 @@
+{{ form_start(form, {'attr': {'class': 'form-login'}}) }}
+
+<div class="search-wrapper">
+    {{ form_widget(form.title) }}
+</div>
+<div class="search-wrapper">
+    {{ form_widget(form.description) }}
+</div>
+<div class="search-wrapper">
+    {{ form_widget(form.categories) }}
+</div>
+<div class="search-wrapper filesOrlinks">
+    {{ form_widget(form.filesOrlinks) }}
+</div>
+<div class="search-wrapper button-submit">
+    <button class="btn" type="submit">{{ button_label|default('Save') }}</button>
+</div>
+{{ form_end(form) }}

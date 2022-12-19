@@ -7,7 +7,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class WorksCrudController extends AbstractCrudController
@@ -22,9 +21,9 @@ class WorksCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('description'),
             AssociationField::new('categories')->renderAsNativeWidget(),
-            ImageField::new('filesOrlinks')->setUploadDir('public/assets')
+            ImageField::new('filesOrlinks')->setUploadDir('public/uploads')
         ];
     }
 

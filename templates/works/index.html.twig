@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Works index{% endblock %}
+
+{% block body %}
+    <p>Useless page !</p>
+{#    <table class="table">#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <th>Title</th>#}
+{#                <th>Description</th>#}
+{#                <th>Img</th>#}
+{#                <th>FilesOrlinks</th>#}
+{#                <th>actions</th>#}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for work in works %}#}
+{#            <tr>#}
+{#                <td>{{ work.id }}</td>#}
+{#                <td>{{ work.title }}</td>#}
+{#                <td>{{ work.description }}</td>#}
+{#                <td>{{ work.img }}</td>#}
+{#                <td>{{ work.filesOrlinks }}</td>#}
+{#                <td>#}
+{#                    <a href="{{ path('app_works_show', {'id': work.id}) }}">show</a>#}
+{#                    <a href="{{ path('app_works_edit', {'id': work.id}) }}">edit</a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% else %}#}
+{#            <tr>#}
+{#                <td colspan="6">no records found</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
+
+    <a href="{{ path('app_works_new') }}">Create new</a>
+{% endblock %}

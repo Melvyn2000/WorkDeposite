@@ -8,19 +8,157 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    <a href="{{ path('app_home') }}">Home</a><br>
-    <a href="{{ path('admin') }}">Admin</a><br>
-    <a href="{{ path('app_search') }}">Search</a><br>
-    <a href="{{ path('app_search2') }}">Search 2</a><br>
-    <a href="{{ path('app_register') }}">Register</a><br>
-    <a href="{{ path('app_login') }}">Login</a><br>
-    <a href="{{ path('app_logout') }}">Logout</a><br>
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/melvyn/Desktop/dev/cours_iut/LP_DEV/projetSymfonyLPDEV/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/melvyn/Desktop/dev/cours_iut/LP_DEV/projetSymfonyLPDEV/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+<div class="projects-section" id="home">
+    <div class="projects-section-header">
+        <p>Works</p>
+        <p class="time">{{ "now"|date("j F Y") }}</p>
+    </div>
+    <div class="projects-section-line">
+        <div class="projects-status">
+            {% for category in categories %}
+                <div class="item-status">
+                    <span class="status-number">XX</span>
+                    <span class="status-type">{{ category.title }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="view-actions">
+            <button class="view-btn list-view" title="List View">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+                    <line x1="8" y1="6" x2="21" y2="6" />
+                    <line x1="8" y1="12" x2="21" y2="12" />
+                    <line x1="8" y1="18" x2="21" y2="18" />
+                    <line x1="3" y1="6" x2="3.01" y2="6" />
+                    <line x1="3" y1="12" x2="3.01" y2="12" />
+                    <line x1="3" y1="18" x2="3.01" y2="18" /></svg>
+            </button>
+            <button class="view-btn grid-view active" title="Grid View">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" /></svg>
+            </button>
+        </div>
+    </div>
+    <div class="project-boxes jsGridView">
+        {% for work in works %}
+        <div class="project-box-wrapper">
+            <div class="project-box">
+                <div class="project-box-header">
+                    <div class="more-wrapper">
+{#                        {{ include('works/_delete_form.html.twig') }}#}
+                    </div>
+                </div>
+{#                    {{ dump(work) }}#}
+                    <div class="project-box-content-header">
+                        <p class="box-content-header">{{ work.title }}</p>
+                        <p class="box-content-subheader">{{ work.description }}</p>
+                    </div>
+                <div class="project-box-footer">
+                    <div class="participants">
+                        <a href="{{ path('app_works_edit', {'id': work.id}) }}" class="add-participant">
+{#                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">#}
+{#                                <path d="M12 5v14M5 12h14" />#}
+{#                            </svg>#}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"> <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/> </svg>
+                        </a>
+                    </div>
+                    {% if work.filesOrLinks is not null %}
+                        <a href="{{ asset('uploads/') }}{{ work.filesOrLinks }}" download class="days-left">
+                            Télécharger
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+    <div class="messages-section">
+        <button class="messages-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" /></svg>
+        </button>
+        <div class="projects-section-header">
+            <p>New Works</p>
+        </div>
+        <div class="messages">
+            <div class="message-box">
+                <!-- <img src="..." alt="Logo PHP"> -->
+                <div class="message-content">
+                    <div class="message-header">
+                        <div class="name">Stephanie</div>
+                        <div class="star-checkbox">
+                            <input type="checkbox" id="star-1">
+                            <label for="star-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="message-line">
+                        I got your first assignment. It was quite good. 🥳 We can continue with the next assignment.
+                    </p>
+                </div>
+            </div>
+            <div class="message-box">
+                <!-- <img src="..." alt="Logo JS"> -->
+                <div class="message-content">
+                    <div class="message-header">
+                        <div class="name">Mark</div>
+                        <div class="star-checkbox">
+                            <input type="checkbox" id="star-2">
+                            <label for="star-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="message-line">
+                        Hey, can tell me about progress of project? I'm waiting for your response.
+                    </p>
+                </div>
+            </div>
+            <div class="message-box">
+                <!-- <img src="..." alt="Logo HTML"> -->
+                <div class="message-content">
+                    <div class="message-header">
+                        <div class="name">David</div>
+                        <div class="star-checkbox">
+                            <input type="checkbox" id="star-3">
+                            <label for="star-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="message-line">
+                        Awesome! 🤩 I like it. We can schedule a meeting for the next one.
+                    </p>
+                </div>
+            </div>
+            <div class="message-box">
+                <!-- <img src="..." alt="Logo SCSS"> -->
+                <div class="message-content">
+                    <div class="message-header">
+                        <div class="name">Jessica</div>
+                        <div class="star-checkbox">
+                            <input type="checkbox" id="star-4">
+                            <label for="star-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="message-line">
+                        I am really impressed! Can't wait to see the final result.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

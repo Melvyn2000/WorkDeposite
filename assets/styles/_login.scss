@@ -180,6 +180,17 @@ button, a {
   }
 }
 
+select {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0 5%;
+  border-radius: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 .add-btn {
   color: #fff;
   background-color: var(--button-bg);
@@ -302,6 +313,11 @@ button, a {
       font-size: 20px;
     }
   }
+}
+
+.projects-section.login, .projects-section.register {
+  background-color: transparent;
+  text-align: center;
 }
 
 .projects-status {
@@ -636,6 +652,9 @@ button, a {
   font-size: 14px;
   line-height: 24px;
   opacity: .7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .box-progress {
@@ -707,8 +726,8 @@ button, a {
 }
 
 .add-participant {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: none;
   background-color: rgba(255,255,255,0.6);
@@ -726,6 +745,7 @@ button, a {
   flex-shrink: 0;
   padding: 6px 16px;
   font-weight: 700;
+  text-decoration: none;
 }
 
 .mode-switch.active .moon {
@@ -746,6 +766,12 @@ button, a {
   padding: 4px;
   display: none;
 }
+
+.app-header-right button {
+  border-left: 2px solid #ddd;
+}
+
+
 
 @media screen and (max-width: 980px) {
   .project-boxes.jsGridView .project-box-wrapper {
@@ -897,6 +923,10 @@ button, a {
   }
 }
 
+.agreeTerms {
+  display: none;
+}
+
 .form-login {
   display: flex;
   flex-direction: column;
@@ -929,5 +959,86 @@ button, a {
       cursor: pointer;
     }
   }
-
 }
+
+.project-boxes {
+  .project-box-wrapper {
+    .project-box {
+      background-color: #fee4cb;
+      .project-box-footer {
+        .participants .add-participant {
+          color: #ff942e;
+        }
+        .days-left {
+          color: #ff942e;
+        }
+      }
+    }
+  }
+  .project-box-wrapper:nth-of-type(2n) {
+    .project-box {
+      background-color: #e9e7fd;
+      .project-box-footer {
+        .participants .add-participant {
+          color: #4f3ff0;
+        }
+        .days-left {
+          color: #4f3ff0;
+        }
+      }
+    }
+  }
+  .project-box-wrapper:nth-of-type(3n) {
+    .project-box {
+      background-color: #dbf6fd;
+      .project-box-footer {
+        .participants .add-participant {
+          color: #096c86;
+        }
+        .days-left {
+          color: #096c86;
+        }
+      }
+    }
+  }
+  .project-box-wrapper:nth-of-type(4n) {
+    .project-box {
+      background-color: #ffd3e2;
+      .project-box-footer {
+        .participants .add-participant {
+          color: #df3670;
+        }
+        .days-left {
+          color: #df3670;
+        }
+      }
+    }
+  }
+  .project-box-wrapper:nth-of-type(5n) {
+    .project-box {
+      background-color: #c8f7dc;
+      .project-box-footer {
+        .participants .add-participant {
+          color: #34c471;
+        }
+        .days-left {
+          color: #34c471;
+        }
+      }
+    }
+  }
+  .project-box-wrapper:nth-of-type(6n) {
+    .project-box {
+      background-color: #d5deff;
+      .project-box-footer {
+        .participants .add-participant {
+          color: #4067f9;
+        }
+        .days-left {
+          color: #4067f9;
+        }
+      }
+    }
+  }
+}
+

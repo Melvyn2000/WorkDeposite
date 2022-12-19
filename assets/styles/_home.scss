@@ -1,0 +1,39 @@
+#home {
+  padding: 32px;
+  justify-content: flex-start;
+}
+
+input[name="works[filesOrlinks]"] {
+  height: auto;
+  background-color: transparent;
+  padding-left: 0;
+}
+.filesOrlinks {
+  background-color: transparent;
+  border-radius: unset;
+  box-shadow: none;
+}
+.add-new-work {
+  width: auto;
+  border-radius: 20px;
+  padding: 1rem;
+  text-decoration: none;
+  svg {
+    margin-right: 4px;
+  }
+}
+
+.btn-delete {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+@media (max-width: 520px) {
+  .app-header {
+    justify-content: center;
+    .app-header-left {
+      display: none;
+    }
+  }
+}

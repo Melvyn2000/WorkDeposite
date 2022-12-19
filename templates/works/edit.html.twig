@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Works{% endblock %}
+
+{% block body %}
+    <div class="projects-section login">
+        <h1 class="h3 mb-3 font-weight-normal">Edit Works</h1>
+        {{ include('works/_form.html.twig', {'button_label': 'Update'}) }}
+{#        {{ include('works/_delete_form.html.twig') }}#}
+    </div>
+{% endblock %}

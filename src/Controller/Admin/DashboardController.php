@@ -60,7 +60,7 @@ class DashboardController extends AbstractDashboardController
         return [
             MenuItem::linkToDashboard('Home', 'fa fa-home'),
             //MenuItem::linkToExitImpersonation('Back in Website', 'fa fa-backward'),
-            MenuItem::linkToLogout('Logout', 'fa fa-backward'),
+            MenuItem::linkToRoute('Return to Home', 'fa fa-backward', 'app_home'),
 
             MenuItem::section('Users'),
             MenuItem::linkToCrud('Users', 'fa fa-users', User::class),

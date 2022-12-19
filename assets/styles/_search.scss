@@ -1,0 +1,33 @@
+#searchBar {
+  background-color: transparent;
+  align-items: center;
+  .search-wrapper {
+    padding: 0 12px;
+    width: 100%;
+    max-width: none;
+  }
+  form[name='search'] {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    div {
+      &:last-of-type {
+        width: unset;
+      }
+      width: 100%;
+      input[type="text"] {
+        width: 100%;
+        border: none;
+        outline: none;
+      }
+      button[type="submit"] {
+        border: none;
+        background-color: transparent;
+        font-weight: bold;
+      }
+      .icon-search {
+        content: url('../../public/assets/icon/search.svg');
+      }
+    }
+  }
+}
