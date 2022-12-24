@@ -34,9 +34,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Works::class)]
     private Collection $works;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: WorksLikes::class)]
+    private Collection $worksLikes;
+
     public function __construct()
     {
         $this->works = new ArrayCollection();
+        $this->worksLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,6 +137,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($work->getUser() === $this) {
                 $work->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WorksLikes>
+     */
+    public function getWorksLikes(): Collection
+    {
+        return $this->worksLikes;
+    }
+
+    public function addWorksLike(WorksLikes $worksLike): self
+    {
+        if (!$this->worksLikes->contains($worksLike)) {
+            $this->worksLikes->add($worksLike);
+            $worksLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorksLike(WorksLikes $worksLike): self
+    {
+        if ($this->worksLikes->removeElement($worksLike)) {
+            // set the owning side to null (unless already changed)
+            if ($worksLike->getUser() === $this) {
+                $worksLike->setUser(null);
             }
         }
 

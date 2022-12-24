@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WorksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +34,14 @@ class Works
 
     #[ORM\ManyToOne(inversedBy: 'works')]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'likes', targetEntity: WorksLikes::class)]
+    private Collection $worksLikes;
+
+    public function __construct()
+    {
+        $this->worksLikes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,5 +117,52 @@ class Works
     {
         $this->user = $user;
         return $this;
+    }
+
+    /**
+     * @return Collection<int, WorksLikes>
+     */
+    public function getWorksLikes(): Collection
+    {
+        return $this->worksLikes;
+    }
+
+    public function addWorksLike(WorksLikes $worksLike): self
+    {
+        if (!$this->worksLikes->contains($worksLike)) {
+            $this->worksLikes->add($worksLike);
+            $worksLike->setLikes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorksLike(WorksLikes $worksLike): self
+    {
+        if ($this->worksLikes->removeElement($worksLike)) {
+            // set the owning side to null (unless already changed)
+            if ($worksLike->getLikes() === $this) {
+                $worksLike->setLikes(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Allows to know a work has been liked by the user.
+     *
+     * @param User|null $user
+     * @return bool
+     */
+    public function isLikedByUser(User $user): bool
+    {
+        //dd($this->getWorksLikes()); // elements: []
+        foreach ($this->getWorksLikes() as $like) {
+            if ($like->getUser() === $user) {
+                return true;
+            }
+        }
+        return false;
     }
 }
