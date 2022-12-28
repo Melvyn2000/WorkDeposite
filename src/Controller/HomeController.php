@@ -12,6 +12,7 @@ use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class HomeController extends AbstractController
 {
@@ -21,7 +22,7 @@ class HomeController extends AbstractController
         if ($this->getUser()) {
             $categories = $this->getCategories($doctrine);
             $works = $this->getWorks($doctrine);
-            $worksMostLikedByUser = $this->WorksMostLiked($doctrine);
+            $worksMostLikedByUser = $this->worksMostLiked($doctrine);
             //dd($worksMostLikedByUser);
             return $this->render('home/index.html.twig', [
                 'controller_name' => 'HomeController',
@@ -97,24 +98,24 @@ class HomeController extends AbstractController
         }
     }
 
-    public function WorksMostLiked(ManagerRegistry $doctrine): array
+    public function worksMostLiked(ManagerRegistry $doctrine): array
     {
-        //Recovers all workLikes data
-        $worksLikes = $doctrine->getRepository(WorksLikes::class)->findAll();
-        //Create array workArray
-        $workArray = [];
-        //Add in this array, the ID of works liked by the users
-        foreach ($worksLikes as $key => $value) {
-            $workArray[$key] = $value->getLikes()->getId();
-        }
-        //Counts all the values of an array workArray
-        $workASC = array_count_values($workArray);
-        //Sorts the values in descending order
-        arsort($workASC);
+        /*
+         * Impossible d'exécuter avec la fonction createQueryBuilder(), car elle ne retoune que les données brutes, pas les objets.
+         * SELECT likes_id, COUNT(likes_id) from works_likes GROUP BY likes_id ORDER BY COUNT(likes_id) DESC
+         */
+        $conn = $doctrine->getConnection();
+        $sql = 'SELECT likes_id, COUNT(likes_id) from works_likes GROUP BY likes_id ORDER BY COUNT(likes_id) DESC';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $resultWorksLiked = $resultSet->fetchAll();
+        // returns an array of arrays (i.e. a raw data set)
+        //dd($resultSet->fetchAll());
+
         //Create an array to recovers entity works must liked by users
         $worksMostLikedArray = [];
-        foreach ($workASC as $key => $value) {
-            $worksMostLikedArray[] = array_values($doctrine->getRepository(Works::class)->findBy(['id'=>$key]));
+        foreach ($resultWorksLiked as $key => $value) {
+            $worksMostLikedArray[] = $doctrine->getRepository(Works::class)->find($value['likes_id']);
         }
         //dd($worksMostLikedArray);
         return $worksMostLikedArray;
